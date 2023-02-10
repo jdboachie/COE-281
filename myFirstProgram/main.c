@@ -16,11 +16,13 @@
 int main()
 {
     int age;
+    float height;
 
     age = 20;
+    height = 6.2;
 
     // Print "Hello, World!" to the console
-    printf("Hello, World!\nI'm Jude Boachie\nI'm %d years old\n", age);
+    printf("Hello, World!\nI'm Jude Boachie\nI'm %d years old\nI am %fft tall\n", age, height);
 
     // Return 0 to the operating system
     return (0);
