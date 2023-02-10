@@ -16,7 +16,7 @@ int main()
 	char_var = 'G';
 
 	//4. Create a char variable with an identifier of auto and note what happens.
-	// auto char a;
+	// auto a; // cannot use auto as a variable name
 
 	//5. Create a variable with data type integer.
 	int i;
