@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 /**
  * main - Entry point
  * Return: Always 0 (Success)
@@ -5,16 +7,16 @@
 int main()
 {
 	//1. Print a character by typing printf("G");
-	printf("G");
+	printf("G\n");
 
 	//2. Create a char variable
-	char c;
+	char char_var;
 
 	//3. Assign to the variable a character, say "G".
-	c = 'G';
+	char_var = 'G';
 
 	//4. Create a char variable with an identifier of auto and note what happens.
-	auto char a;
+	// auto char a;
 
 	//5. Create a variable with data type integer.
 	int i;
@@ -23,7 +25,8 @@ int main()
 	i = 5;
 
 	//7. Create two integer variables a and b
-	int a, b;
+	int a;
+	int b;
 
 	//8. Assign a number to each variable.
 	a = 5;
@@ -36,11 +39,11 @@ int main()
 	c = a + b;
 
 	//11. Perform multiplication, division, subtraction, and modulo on a and b and store the results in different variables.
-	int d, e, f, g;
-	d = a * b;
-	e = a / b;
-	f = a - b;
-	g = a % b;
+	int w, x, y, z;
+	w = a * b;
+	x = a / b;
+	y = a - b;
+	z = a % b;
 
 	//12. Create two new sets of integer variables (d and e) with numbers assigned to each
 	int d, e;
@@ -51,8 +54,6 @@ int main()
 	d += e;
 
 	//14. Repeat step 12 varying the assignment operator (e.g. -=, *=, /=, %=)
-	int d, e;
-
 	d = 5;
 	e = 10;
 	
