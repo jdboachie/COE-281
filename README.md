@@ -4,5 +4,5 @@ by: DR. (MRS) T-S.M.A. ADJAIDOO
 
 ## Course Materials
 
-[Lecture Slides](https://drive.google.com/drive/u/0/folders/18wCEzsbOvwjTxzeSZUlPfC0MPQnDWyBF)
-[Lab Manuals](https://drive.google.com/drive/folders/1OltINMfSnd-9ZV8USvuYzYPLZLhIclNU?usp=share_link)
+- [Lecture Slides](https://drive.google.com/drive/u/0/folders/18wCEzsbOvwjTxzeSZUlPfC0MPQnDWyBF) </br>
+- [Lab Manuals](https://drive.google.com/drive/folders/1OltINMfSnd-9ZV8USvuYzYPLZLhIclNU?usp=share_link)
