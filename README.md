@@ -1,2 +1,8 @@
-# coe-291-lab
-My code for the COE 291 course
+# PROGRAMMING AND PROBLEM SOLVING
+
+by: DR. (MRS) T-S.M.A. ADJAIDOO
+
+## Course Materials
+
+- [Lecture Slides](https://drive.google.com/drive/u/0/folders/18wCEzsbOvwjTxzeSZUlPfC0MPQnDWyBF) </br>
+- [Lab Manuals](https://drive.google.com/drive/folders/1OltINMfSnd-9ZV8USvuYzYPLZLhIclNU?usp=share_link)
