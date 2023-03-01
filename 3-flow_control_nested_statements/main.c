@@ -9,7 +9,7 @@ int main()
     float cost;
 
     // Declare string variables for all the flavours
-    char flavours[6][10];
+    char flavours[6][11]; // increasing the length of the array
     strcpy(flavours[1], "Vanilla");
     strcpy(flavours[2], "Strawberry");
     strcpy(flavours[3], "Chocolate");
