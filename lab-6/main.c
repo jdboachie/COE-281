@@ -24,9 +24,7 @@ float requestAmount()
 
 void deposit()
 {
-	float amount;
-	printf("Enter the amount you want to deposit: ");
-	scanf("%f", &amount);
+	float amount = requestAmount();
 	balance += amount;
 	printf("Your new balance is %g\n", balance);
 }
@@ -47,11 +45,9 @@ void withDraw(float amount)
 void transfer()
 {
 	int account_number;
-	float amount;
 	printf("Enter the account number of the recipient: ");
 	scanf("%d", &account_number);
-	printf("Enter the amount you want to transfer: ");
-	scanf("%f", &amount);
+	float amount = requestAmount();
 	if (amount > balance)
 	{
 		printf("Insufficient funds\n");
@@ -66,12 +62,13 @@ void transfer()
 int main()
 {
 	int tries = 0;
-start:
+
+	start:
 	printf("WELCOME TO ABC BANK\nEnter your four digit pin\n");
 	int pin = 0;
 	scanf("%d", &pin);
 
-menu:
+	menu:
 
 	if (authenticate(pin) && tries < 4)
 	{
