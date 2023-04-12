@@ -2,22 +2,28 @@
 
 float balance = 0.00;
 
-int authenticate(int pin) {
-	if (pin == 8907) {
+int authenticate(int pin)
+{
+	if (pin == 8907)
+	{
 		return 1;
-	} else {
+	}
+	else
+	{
 		return 0;
 	}
 }
 
-float requestAmount() {
+float requestAmount()
+{
 	float amount;
 	printf("Enter the amount you want to withdraw: ");
 	scanf("%f", &amount);
 	return amount;
 }
 
-void deposit() {
+void deposit()
+{
 	float amount;
 	printf("Enter the amount you want to deposit: ");
 	scanf("%f", &amount);
@@ -25,25 +31,33 @@ void deposit() {
 	printf("Your new balance is %g\n", balance);
 }
 
-void withDraw(float amount) {
-	if (amount > balance) {
+void withDraw(float amount)
+{
+	if (amount > balance)
+	{
 		printf("Insufficient funds\n");
-	} else {
+	}
+	else
+	{
 		balance -= amount;
 		printf("Your new balance is %g\n", balance);
 	}
 }
 
-void transfer() {
+void transfer()
+{
 	int account_number;
 	float amount;
 	printf("Enter the account number of the recipient: ");
 	scanf("%d", &account_number);
 	printf("Enter the amount you want to transfer: ");
 	scanf("%f", &amount);
-	if (amount > balance) {
+	if (amount > balance)
+	{
 		printf("Insufficient funds\n");
-	} else {
+	}
+	else
+	{
 		balance -= amount;
 		printf("Your new balance is %g\n", balance);
 	}
@@ -52,12 +66,12 @@ void transfer() {
 int main()
 {
 	int tries = 0;
-	start:
+start:
 	printf("WELCOME TO ABC BANK\nEnter your four digit pin\n");
-	int pin=0;
+	int pin = 0;
 	scanf("%d", &pin);
 
-	menu:
+menu:
 
 	if (authenticate(pin) && tries < 4)
 	{
@@ -65,15 +79,19 @@ int main()
 
 		printf("Select an option\n1. Check Balance\n2. Withdrawal\n3. Deposit\n4. Transfer\n");
 		scanf("%d", &menu_item);
-		switch(menu_item)
+		switch (menu_item)
 		{
-			case 1: printf("%g\n", balance);
+		case 1:
+			printf("%g\n", balance);
 			break;
-			case 2: withDraw(requestAmount());
+		case 2:
+			withDraw(requestAmount());
 			break;
-			case 3: deposit();
+		case 3:
+			deposit();
 			break;
-			case 4: transfer();
+		case 4:
+			transfer();
 		}
 	}
 	else
@@ -96,7 +114,7 @@ int main()
 	int response;
 	printf("Would you like to perform another transaction?\n1. Yes\n2. No\n");
 	scanf("%d", &response);
-	if(response == 1)
+	if (response == 1)
 	{
 		goto menu;
 	}
