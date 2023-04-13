@@ -1,148 +1,203 @@
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <string.h>
 struct Shop
 {
-	char shopName[20];
-	unsigned long long int shopNumber;
+	char shopName[30];
+	/*long long int provides 8 bytes of memory so my phone number can be more than 10 digits.
+	 *unsigned means my number cannot be negative.
+	*/
+	unsigned long long int shopPhoneNumber;
 };
-
-struct Price
-{
-	char currency[3];
-	float amount;
-};
-
-union Size
-{
-	int digit;
-	char letter;
-	char word[10];
-};
-
 struct Clothing
 {
-	char code[10];
-	int year;
+	unsigned int code;
+	unsigned int year;
+	struct Shop shopSelling; // Shop selling clothe(It has a name & phone number).
+	struct Price
+	{
+		char currencyUsed[10];
+		float amountSelling;
+	}price;
+	union Size
+	{
+		int digit;
+		char letter;
+		char word[30];
+	}size;
 	int sizetype;
-	struct Shop shop;
-	struct Price price;
-	union Size size;
 };
 
-// Global variables
 struct Shop shopArray[10];
-struct Clothing clothingArray[15];
-int shopCount = 0;
-int clothingCount = 0;
+struct Clothing clotheArray[15];
+int shopCount = 0, clothesCount = 0;
 
-
-void showShops()
-{
-	printf("Shops\n");
-	for(int i=0; i<shopCount; i++)
-	{
-		printf("%d. %s\n", i+1, shopArray[i].shopName);
-	}
-}
-
-void showDetails(int shopIndex)
-{
-	printf("Shop Details\n");
-	printf("Name: %s\n", shopArray[shopIndex].shopName);
-	printf("Number: %llu\n", shopArray[shopIndex].shopNumber);
-}
-
-void showClothes(int shopIndex)
-{
-	printf("Clothes\n");
-	for(int i=0; i<clothingCount; i++)
-	{
-		if(clothingArray[i].shop.shopNumber == shopArray[shopIndex].shopNumber)
-		{
-			printf("%d. %s\n", i+1, clothingArray[i].code);
-		}
-	}
-}
-
-void addClothing()
-{
-	printf("Add Clothing\n");
-	printf("Code: ");
-	scanf(" %s", clothingArray[clothingCount].code);
-	printf("Year: ");
-	scanf(" %d", &clothingArray[clothingCount].year);
-	printf("Size Type: ");
-	scanf(" %d", &clothingArray[clothingCount].sizetype);
-	printf("Shop Name: ");
-	scanf(" %s", clothingArray[clothingCount].shop.shopName);
-	printf("Shop Number: ");
-	scanf(" %llu", &clothingArray[clothingCount].shop.shopNumber);
-	printf("Price Currency: ");
-	scanf(" %s", clothingArray[clothingCount].price.currency);
-	printf("Price Amount: ");
-	scanf(" %f", &clothingArray[clothingCount].price.amount);
-
-	if(clothingArray[clothingCount].sizetype == 1)
-	{
-		printf("Size Digit: ");
-		scanf(" %d", &clothingArray[clothingCount].size.digit);
-	}
-	else if(clothingArray[clothingCount].sizetype == 2)
-	{
-		printf("Size Letter: ");
-		scanf(" %c", &clothingArray[clothingCount].size.letter);
-	}
-	else if(clothingArray[clothingCount].sizetype == 3)
-	{
-		printf("Size Word: ");
-		scanf(" %s", clothingArray[clothingCount].size.word);
-	}
-	clothingCount++;
-}
+void showShops(void);
+void showDetails(int arrayIndex);
+void showClothes(void);
+void showClothesDetails(int arrayIndex);
+void addClothing(void);
 
 int main()
 {
-	struct Shop shop1 = {"Shop1", 1234567890};
-	struct Shop shop2 = {"Shop2", 1234567891};
+	// Two variables of type struct Shop.
+	struct Shop shop1 = {.shopName ="Excellence Boutique",.shopPhoneNumber = 233204676251};
+	struct Shop shop2 = {.shopName ="ST PHILIPS", .shopPhoneNumber = 233504168149};
 
+	// Passing the two variables(shop 1 & shop 2 to the shopArray[]).
 	shopArray[0] = shop1;
 	shopArray[1] = shop2;
 	shopCount = 2;
+	// 4 variables of data type, struct Clothing and initializing them.
+	struct Clothing clothes_1 = {.sizetype = 3,.size.letter = 'L',.size.word = "BLACK JEANS", .shopSelling.shopPhoneNumber = shop1.shopPhoneNumber, .code = 4356, .year = 2019, .price.currencyUsed = "USD", .price.amountSelling   = 90};
+	struct Clothing clothes_2 = {.sizetype = 3,.size.letter = 'M',.size.word = "SWEAT PANTS", .shopSelling.shopPhoneNumber = shop1.shopPhoneNumber, .code = 4366, .year = 2020, .price.currencyUsed = "EUR" , .price.amountSelling = 100};
+	struct Clothing clothes_3 = {.sizetype = 3,.size.letter = 'S',.size.word = "LACOSTE TOP", .shopSelling.shopPhoneNumber = shop1.shopPhoneNumber, .code = 4376, .year = 2021, .price.currencyUsed = "BPS",  .price.amountSelling  = 120};
+	struct Clothing clothes_4 = {.sizetype = 3,.size.letter = 'L',.size.word = "ARARE SHIRT", .shopSelling.shopPhoneNumber = shop2.shopPhoneNumber, .code = 5028, .year = 2021, .price.currencyUsed = "CFA",   .price.amountSelling = 150};
+	strcpy(clothes_1.shopSelling.shopName , shop1.shopName);
+	strcpy(clothes_2.shopSelling.shopName , shop1.shopName);
+	strcpy(clothes_3.shopSelling.shopName , shop1.shopName);
+	strcpy(clothes_4.shopSelling.shopName , shop2.shopName);
+	/*
+	*I'm assuming the first 3 clothes are sold in shop 1 and the 4th clothe in shop 2.
+	*I'm using .size.word to represent name of the clothe.
+	*And .size.letter to represnt the size(S,M,L).
+	*And .size.digit to represnt
+	*.sizetype will determine which size member is initialized.
+	*If.sizetype = 1, then I will initialize .size.digit, else if .sizetype = 2, then I will initialize .size.letter, else if .sizetype = 3, then I will initialize .size.word
+	*/
 
-	struct Clothing clothing1 = {"CLOTH1", 2019, 1, shop1, {"USD", 10.0}, {10}};
-	struct Clothing clothing2 = {"CLOTH2", 2019, 2, shop2, {"USD", 20.0}, {'A'}};
-	struct Clothing clothing3 = {"CLOTH3", 2019, 3, shop1, {"USD", 30.0}, {"WORD"}};
-	struct Clothing clothing4 = {"CLOTH4", 2019, 1, shop2, {"USD", 40.0}, {40}};
-
-	clothingArray[0] = clothing1;
-	clothingArray[1] = clothing2;
-	clothingArray[2] = clothing3;
-	clothingArray[3] = clothing4;
-	clothingCount = 4;
-	return 0;
-
-	int looping=0;
-	do{
+	// Passing the four variables(clothes_1,clothes_2, etc to clotheArray[]).
+	clotheArray[0] = clothes_1;
+	clotheArray[1] = clothes_2;
+	clotheArray[2] = clothes_3;
+	clotheArray[3] = clothes_4;
+	clothesCount = 4;
+	int looping = 0;
+	do
+	{
 		printf("CLOTHING MALL\n1.Visit Shop\t2.Add Clothing\t3.Exit\n");
 		int option;
 		scanf(" %d", &looping);
-		switch(looping){
-			case 1:
+		switch(looping)
+		{
+		case 1:
+			{
 				showShops();
 				scanf(" %d", &option);
-				showDetails(option-1);
-				showClothes(option-1);
+				showDetails(option - 1);
+				showClothes();
+				scanf(" %d", &option);
+				showClothesDetails(option - 1);
 				break;
-			case 2:
+			}
+		case 2:
+			{
 				addClothing();
 				break;
-			case 3:
-				looping = 0;
+			}
+		case 3:
+			{
+				looping = 0; // looping = 0 will make our condition false and we will break out of the do-while loop.
 				printf("Thanks for shopping :)");
 				break;
-			default:
+			}
+		default:
+			{
 				printf("Invalid choice\n");
 				break;
+			}
+
 		}
-	}while(looping>0);
+
+	}while(looping > 0);
+
+
+	return 0;
+}
+
+void showShops(void)
+{
+	printf("\n1. Shop 1\n2. Shop 2\n");
+	printf("Added shops by user.\n");
+	printf("3. User shop 1\n4. User shop 2\n5. User shop 3\n6. User shop 3\n7. User shop 4\n");
+}
+
+void showDetails(int arrayIndex)
+{
+	printf("Shop name is %s\nShop number is %llu\n",shopArray[arrayIndex].shopName, shopArray[arrayIndex].shopPhoneNumber);
+}
+
+void showClothes(void)
+{
+	printf("\nAvailable clothes.\n");
+	printf("1. Clothe 1\n2. Clothe 2\n3. Clothe 3\n4. Clothe 4\n5. User's first clothe\n6. User's second clothe\n7. User's third clothe\n8. User's fourth clothe\n9. User's five clothe\n");
+}
+
+void showClothesDetails(int arrayIndex)
+{
+	printf("\nClothe details.\n");
+	printf("Clothe is %s\n", clotheArray[arrayIndex].size.word);
+	printf("Available size is %c\n", clotheArray[arrayIndex].size.letter);
+	printf("Currently available at %s\nShop's phone number is %llu\n",clotheArray[arrayIndex].shopSelling.shopName,clotheArray[arrayIndex].shopSelling.shopPhoneNumber);
+	printf("Code for clothe: %u\nYear clothe was made: %u\n",clotheArray[arrayIndex].code,clotheArray[arrayIndex].year);
+	printf("Accepted currency: %s\nPrice of item: %.2f\n",clotheArray[arrayIndex].price.currencyUsed,clotheArray[arrayIndex].price.amountSelling);
+}
+
+void addClothing(void)
+{
+	int userClothesCount = 0;
+	printf("Add your own clothes.\n");
+	printf("How many clothes would you want to add?\n");
+	scanf(" %d", &userClothesCount);
+	for(int i = 0; i < userClothesCount; ++i)
+	{
+		struct Shop userShop;
+		struct Clothing userAddedClothe;
+		fflush(stdin);
+		printf("Add your clothe to a new shop or choose an existing shop.\n");
+		gets(userShop.shopName);
+		/*
+		* I will ask the user if he/she wishes to add the clothes to already exisiting shops.
+		* Or he/she would want to add clothes to a new shop.
+		* If he/she chooses an already existing shop (shop 1 or 2) then the shop details are copied from the shop array.
+		* Else we take the name and phone number of the new shop user wants to add the clothes.
+		* And we proceed to take the details of the clothes based on the number of clothes the user wants to add.
+		*/
+	if(strcmp(userShop.shopName,"shop 1")== 0)
+	{
+		// Copy shop 1 details here. (shopNmae, shopPhoneNumber).
+		strcpy(userShop.shopName,shopArray[0].shopName);
+		userShop.shopPhoneNumber = shopArray[0].shopPhoneNumber;
+		// Index 0 and 1 of shopArray has already been filled with details of shop 1 and shop 2 already so we have to use the indexes after.
+		shopArray[i+2] = userShop;
+	}
+	else if(strcmp(userShop.shopName,"shop 2")== 0)
+	{
+		strcpy(userShop.shopName,shopArray[1].shopName);
+		userShop.shopPhoneNumber = shopArray[1].shopPhoneNumber;
+		// Index 0 and 1 of shopArray has already been filled with details of shop 1 and shop 2 already so we have to use the indexes after.
+		shopArray[i+2] = userShop;
+	}
+	else
+	{
+		printf("Add your shop's phone number\n");
+		scanf(" %llu",&userShop.shopPhoneNumber);
+		shopArray[i+2] = userShop;
+	}
+	fflush(stdin);
+	printf("Add the name of the clothe.eg: X JEANS\n");
+	gets(userAddedClothe.size.word);
+	printf("Add the unique code for the clothe.\n");
+	scanf(" %u", &userAddedClothe.code);
+	printf("Add the year the clothe was made.\n");
+	scanf(" %u", &userAddedClothe.year);
+	printf("Add the accepted currency.\n");
+	scanf(" %s", userAddedClothe.price.currencyUsed);
+	printf("Add the cost of the clothe.\n");
+	scanf(" %f", &userAddedClothe.price.amountSelling);
+	strcpy(userAddedClothe.shopSelling.shopName,userShop.shopName);
+	userAddedClothe.shopSelling.shopPhoneNumber = userShop.shopPhoneNumber;
+	// Index 0,1,2,3 of clotheArray has already been filled with details of clothes 1,2,3 and 4 already so we have to use the indexes after.
+	clotheArray[i+4] = userAddedClothe;
+	}
 }
